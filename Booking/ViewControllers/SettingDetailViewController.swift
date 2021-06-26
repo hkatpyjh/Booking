@@ -1,8 +1,9 @@
 import UIKit
 import ProgressHUD
+import Toast
 
 class SettingDetailViewController: UIViewController {
-
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addButton: UIBarButtonItem!
     
@@ -10,7 +11,7 @@ class SettingDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         configure()
     }
     
@@ -18,7 +19,7 @@ class SettingDetailViewController: UIViewController {
         SettingService.shared.update(settingOption: settingOption)
         SettingService.shared.save()
     }
-
+    
     func configure() {
         tableView.register(ProfileCell.self, forCellReuseIdentifier: ProfileCell.reuseIdentifier)
         tableView.register(SettingCell.self, forCellReuseIdentifier: SettingCell.reuseIdentifier)
@@ -75,6 +76,11 @@ class SettingDetailViewController: UIViewController {
     
     @IBAction func handleAdd(_ sender: Any) {
         AlertUtil.showAlertWithTextField(msg: Const.MSG_ADD_CATEGORY) { category in
+            if category.isEmpty {
+                self.view.makeToast(Const.MSG_INPUT_NOT_EMPTY, duration: 3.0, position: .top)
+                return
+            }
+            
             if self.settingOption.preset.contains(where: { $0.caseInsensitiveCompare(category) == .orderedSame }) {
                 return
             }
@@ -150,7 +156,7 @@ extension SettingDetailViewController: UITableViewDelegate {
             return false
         }
     }
-
+    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         let data = settingOption.preset[indexPath.row]
         if (editingStyle == .delete) {
@@ -218,7 +224,7 @@ extension SettingDetailViewController: UITableViewDataSource {
     private func configureIndicatorCell(_ cell: UITableViewCell, _ indexPath: IndexPath) {
         let indicator = IndicatorType.allCases[indexPath.row]
         cell.textLabel?.text = indicator.rawValue
-
+        
         if indicator == IndicatorType.init(rawValue: settingOption.datas[0]){
             cell.accessoryType = .checkmark
         } else {

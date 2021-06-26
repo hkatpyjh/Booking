@@ -8,7 +8,8 @@ struct Const {
     static let MSG_NO_SEARCH_HISTORY = "No search history"
     static let MSG_DEFAULT_SEARCH_PLACEHOLDER = "Search"
     static let MSG_SEARCH_PLACEHOLDER = "title, author, ISBN or keywords"
-
+    static let MSG_INPUT_NOT_EMPTY = "Input can not be empty."
+    
     static let YES = "Yes"
     static let NO = "No"
     static let MORE = "More"
@@ -18,7 +19,7 @@ struct Const {
     static let CLEAR = "Clear"
     static let SETTING_KEY = "booking_setting"
     static let PROFILE_IMG = "profile.jpeg"
-
+    
     static let SECTION_TITLE_SEARCH_HISTORY = "History"
     static let SECTION_TITLE_RECOMMEND = "Recommend"
     static let SECTION_TITLE_CATEGORY = "Category"
@@ -68,3 +69,5 @@ struct Const {
         "Book Category", "rectangle.3.offgrid", "Swift", "PHP", "SQL"
     ]
 }
+
+
