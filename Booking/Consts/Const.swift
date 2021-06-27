@@ -32,26 +32,26 @@ struct Const {
         "Python", "Java", "Visual Basic", "JavaScript", "PHP", "SQL", "Swift", "Go", "Perl", "Ruby", "Kotlin", "Rust"
     ]
     static let PRESET_CATEGORY_MENU: [[String: Any]] = [
-        ["menu": "Development Language", "menuType": MenuType.Collasable.rawValue, "color": "#e963ad", "submenus": [
-            ["submenu": "Swift"], ["submenu": "Object-C"], ["submenu": "Java"],
-            ["submenu": "Visual Basic"], ["submenu": "Python"], ["submenu": "PHP"],
-            ["submenu": "Javascript"], ["submenu": "Go"], ["submenu": "Ruby"], ["submenu": "C#"]
+        ["text": "Development Language", "menuType": MenuType.Collasable.rawValue, "color": "#e963ad", "submenus": [
+            ["text": "Swift"], ["text": "Object-C"], ["text": "Java"],
+            ["text": "Visual Basic"], ["text": "Python"], ["text": "PHP"],
+            ["text": "Javascript"], ["text": "Go"], ["text": "Ruby"], ["text": "C#"]
         ]
         ],
-        ["menu": "Framework", "menuType": MenuType.Collasable.rawValue, "color": "#42cbf5", "submenus": [
-            ["submenu": "Spring Framework"], ["submenu": "JavaServer Faces"], ["submenu": "Struts"],
-            ["submenu": "Vue"], ["submenu": "ASP.NET"]
+        ["text": "Framework", "menuType": MenuType.Collasable.rawValue, "color": "#42cbf5", "submenus": [
+            ["text": "Spring Framework"], ["text": "JavaServer Faces"], ["text": "Struts"],
+            ["text": "Vue"], ["text": "ASP.NET"]
         ]
         ],
-        ["menu": "Design", "menuType": MenuType.Collasable.rawValue, "color": "#ffe0bd", "submenus": [
-            ["submenu": "Illustrator"], ["submenu": "Photoshop"], ["submenu": "Gimp"],
-            ["submenu": "Adobe XD"], ["submenu": "Premiere Rush"], ["submenu": "Dreamweaver"],
-            ["submenu": "Spark"], ["submenu": "InDesign"], ["submenu": "After Effects"]
+        ["text": "Design", "menuType": MenuType.Collasable.rawValue, "color": "#ffe0bd", "submenus": [
+            ["text": "Illustrator"], ["text": "Photoshop"], ["text": "Gimp"],
+            ["text": "Adobe XD"], ["text": "Premiere Rush"], ["text": "Dreamweaver"],
+            ["text": "Spark"], ["text": "InDesign"], ["text": "After Effects"]
         ]
         ],
-        ["menu": "", "menuType": MenuType.Twocolumn.rawValue, "color": "", "submenus": [
-            ["submenu": "Design Patterns"], ["submenu": "API"], ["submenu": "NoSQL"],
-            ["submenu": "Platform"], ["submenu": "Cloud"]
+        ["text": "", "menuType": MenuType.Twocolumn.rawValue, "color": "", "submenus": [
+            ["text": "Design Patterns"], ["text": "API"], ["text": "NoSQL"],
+            ["text": "Platform"], ["text": "Cloud"]
         ]
         ]
     ]

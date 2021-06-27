@@ -26,7 +26,7 @@ class CollasableCell: UITableViewCell, SelfConfiguringCell {
     func configure<T>(with model: T, _ indexPath: IndexPath) {
         self.data = model as? MainMenu
 
-        title.text = data.menu
+        title.text = data.text
 
         stackView.arrangedSubviews[1].isHidden = !data.expanded
         
@@ -50,9 +50,9 @@ class CollasableCell: UITableViewCell, SelfConfiguringCell {
         for (index, data) in data.submenus.enumerated() {
             switch index % 2 {
             case 0:
-                createButton(stackView: leftStackView, data: data)
+                createButton(stackView: leftStackView, subMenu: data, index: index)
             default:
-                createButton(stackView: rightStackView, data: data)
+                createButton(stackView: rightStackView, subMenu: data, index: index)
             }
         }
         
@@ -62,31 +62,21 @@ class CollasableCell: UITableViewCell, SelfConfiguringCell {
             view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: nil))
         }
         
-        let ipimage = IPImage(text: data.menu, radius: 20, font: nil, textColor: .black, backgroundColor: UIColor(hexaString: data.color))
+        let ipimage = IPImage(text: data.text, radius: 20, font: nil, textColor: .black, backgroundColor: UIColor(hexaString: data.color))
         icon.image = ipimage.generateImage()
         icon.layer.cornerRadius = icon.frame.width / 2
         icon.backgroundColor = .systemGray5
     }
 
-    private func createButton(stackView: UIStackView, data: SubMenu) {
-        let button = UIButton(frame: CGRect(x: 0, y: 0, width: stackView.frame.width, height: 45))
-        button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .callout)
-        button.setTitleColor(.black, for: .normal)
-        button.setTitle(data.submenu, for: .normal)
-        button.setBackgroundColor(.white, forState: .normal)
-        button.setBackgroundColor(.systemGray3, forState: .highlighted)
-        button.contentHorizontalAlignment = .left
-        button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0);
-        button.layer.borderWidth = 0.5
-        button.layer.borderColor = UIColor.systemGray5.cgColor
+    private func createButton(stackView: UIStackView, subMenu: SubMenu, index: Int) {
+        let button = CommonUtil.createDisclosureButton(width: stackView.frame.width, height: 45, title: subMenu.text)
+        if index == 0 || index == 1 {
+            button.addBorder(position: .top, color: .systemGray5, width: 1)
+        }
+        button.addBorder(position: .bottom, color: .systemGray5, width: 1)
+        button.addBorder(position: .right, color: .systemGray5, width: 1)
         button.addTarget(self, action: #selector(handleButton(_:)), for: .touchUpInside)
         stackView.addArrangedSubview(button)
-        
-        let disclosure = UITableViewCell()
-        disclosure.frame = CGRect(x: 0, y: 0, width: stackView.frame.width - 10, height: 45)
-        disclosure.accessoryView = UIImageView(image: UIImage(systemName: "chevron.right")?.withTintColor(.lightGray, renderingMode: .alwaysOriginal))
-        disclosure.isUserInteractionEnabled = false
-        button.addSubview(disclosure)
     }
     
     @objc func handleButton(_ sender: UIButton) {
