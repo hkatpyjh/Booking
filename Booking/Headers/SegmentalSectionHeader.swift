@@ -69,13 +69,21 @@ class SegmentalSectionHeader: UICollectionReusableView, SelfConfiguringHeader {
         
         titleLabel.text = section.rawValue
         
-        let settingOption = SettingService.shared.find(settingType: .Category)
+        var settingOption = SettingService.shared.find(settingType: .Category)
         segment.removeAll()
         for i in 0..<settingOption.datas.count {
             segment.insertSegment(withTitle: settingOption.datas[i], at: i)
         }
         segment.selectedSegmentIndex = SettingService.shared.setting.categoryIndex
+        segment.fixedSegmentWidth = false
         
+        if settingOption.isOn {
+            settingOption.isOn = false
+            SettingService.shared.update(settingOption: settingOption)
+            SettingService.shared.save()
+            segmentAction(segment)
+        }
+
         segment.addTarget(self, action: #selector(self.segmentAction(_:)), for: .valueChanged)
         moreButton.addTarget(self, action: #selector(moreAction(_:)), for: .touchUpInside)
     }
@@ -89,7 +97,9 @@ class SegmentalSectionHeader: UICollectionReusableView, SelfConfiguringHeader {
     }
     
     @objc func segmentAction(_ sender: ScrollableSegmentedControl) {
-        let categoryName = sender.titleForSegment(at: sender.selectedSegmentIndex)!
+        guard let categoryName = sender.titleForSegment(at: sender.selectedSegmentIndex) else {
+            return
+        }
         SettingService.shared.setting.categoryIndex = sender.selectedSegmentIndex
         SettingService.shared.setting.categoryName = categoryName
         

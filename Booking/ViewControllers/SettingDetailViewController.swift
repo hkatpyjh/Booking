@@ -18,6 +18,7 @@ class SettingDetailViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         SettingService.shared.update(settingOption: settingOption)
         SettingService.shared.save()
+        settingOption.isOn = false
     }
     
     func configure() {
@@ -125,14 +126,19 @@ extension SettingDetailViewController: UITableViewDelegate {
     
     private func changeCategory(_ cell: UITableViewCell, _ indexPath: IndexPath) {
         let data = settingOption.preset[indexPath.row]
-        
         if settingOption.datas.contains(data) {
+            if settingOption.datas.count <= 1 {
+                self.view.makeToast(Const.MSG_SELECT_ATLEAST_ONE, duration: 3.0, position: .top)
+                return
+            }
             cell.accessoryType = .none
             settingOption.datas.removeAll(where: { $0 == data })
         } else {
             cell.accessoryType = .checkmark
             settingOption.datas.append(data)
         }
+        settingOption.isOn = true
+        SettingService.shared.setting.categoryIndex = 0
     }
     
     private func changeIndicator(_ cell: UITableViewCell, _ indexPath: IndexPath) {
@@ -159,11 +165,23 @@ extension SettingDetailViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         let data = settingOption.preset[indexPath.row]
+        if settingOption.preset.count <= 1 {
+            self.view.makeToast(Const.MSG_NEED_ATLEAST_ONE, duration: 3.0, position: .top)
+            return
+        }
         if (editingStyle == .delete) {
             settingOption.preset.removeAll(where: { $0.caseInsensitiveCompare(data) == .orderedSame })
             settingOption.datas.removeAll(where: { $0.caseInsensitiveCompare(data) == .orderedSame })
+            if settingOption.datas.count == 0 {
+                guard let tmpData = settingOption.preset.first else {
+                    return
+                }
+                settingOption.datas.append(tmpData)
+            }
             tableView.reloadData()
         }
+        settingOption.isOn = true
+        SettingService.shared.setting.categoryIndex = 0
     }
 }
 
@@ -238,6 +256,8 @@ extension SettingDetailViewController: UITableViewDataSource {
         
         if settingOption.datas.contains(data) {
             cell.accessoryType = .checkmark
+        } else {
+            cell.accessoryType = .none
         }
     }
 }

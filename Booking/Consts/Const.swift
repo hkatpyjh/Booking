@@ -9,6 +9,8 @@ struct Const {
     static let MSG_DEFAULT_SEARCH_PLACEHOLDER = "Search"
     static let MSG_SEARCH_PLACEHOLDER = "title, author, ISBN or keywords"
     static let MSG_INPUT_NOT_EMPTY = "Input can not be empty."
+    static let MSG_SELECT_ATLEAST_ONE = "Select atleast one."
+    static let MSG_NEED_ATLEAST_ONE = "Need atleast one."
     
     static let YES = "Yes"
     static let NO = "No"
