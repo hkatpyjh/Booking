@@ -75,7 +75,7 @@ class SegmentalSectionHeader: UICollectionReusableView, SelfConfiguringHeader {
             segment.insertSegment(withTitle: settingOption.datas[i], at: i)
         }
         segment.selectedSegmentIndex = SettingService.shared.setting.categoryIndex
-        segment.fixedSegmentWidth = false
+        segment.layoutIfNeeded()
         
         if settingOption.isOn {
             settingOption.isOn = false
