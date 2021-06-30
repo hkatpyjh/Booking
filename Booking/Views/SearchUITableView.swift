@@ -6,8 +6,10 @@ class SearchUITableView: UITableView {
     var navigationController: UINavigationController!
     
     override init(frame: CGRect, style: UITableView.Style) {
-        super.init(frame: frame, style: style)
+        super.init(frame: frame, style: .grouped)
         
+        backgroundColor = .white
+        separatorStyle = .none
         dataSource = self
         delegate = self
     }
@@ -131,6 +133,7 @@ extension SearchUITableView: UITableViewDataSource {
         case .History:
             cell.textLabel?.text = searchHistory.key
             cell.accessoryType = .disclosureIndicator
+            cell.addBorder(position: .bottom, color: .systemGray5, width: 1)
         }
         
         return cell
@@ -165,6 +168,14 @@ extension SearchUITableView: UITableViewDataSource {
 }
 
 extension SearchUITableView: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return UIView(frame: .zero)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return CGFloat.leastNormalMagnitude
+    }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let searchType = SearchType.allCases[section]
         switch searchType {
