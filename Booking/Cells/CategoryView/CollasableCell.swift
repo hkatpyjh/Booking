@@ -69,7 +69,11 @@ class CollasableCell: UITableViewCell, SelfConfiguringCell {
     }
 
     private func createButton(stackView: UIStackView, subMenu: SubMenu, index: Int) {
-        let button = CommonUtil.createDisclosureButton(width: stackView.frame.width, height: 45, title: subMenu.text)
+        guard let width = UIApplication.parentViewController()?.view.frame.width else {
+            fatalError("Unable get width from parentview")
+        }
+        
+        let button = CommonUtil.createDisclosureButton(width: width / 2, height: 45, title: subMenu.text)
         if index == 0 || index == 1 {
             button.addBorder(position: .top, color: .systemGray5, width: 1)
         }

@@ -26,7 +26,7 @@ struct CommonUtil {
         return emptyView
     }
     
-    static func createDisclosureButton(width: CGFloat, height: CGFloat, title: String)-> UIButton {
+    static func createDisclosureButton(width: CGFloat, height: CGFloat, title: String, ajustWidth: CGFloat = 0)-> UIButton {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: width, height: height))
         button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .callout)
         button.setTitleColor(.black, for: .normal)
@@ -37,7 +37,7 @@ struct CommonUtil {
         button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0);
         
         let disclosure = UITableViewCell()
-        disclosure.frame = CGRect(x: 0, y: 0, width: width - 10, height: height)
+        disclosure.frame = CGRect(x: 0, y: 0, width: width - ajustWidth, height: height)
         disclosure.accessoryView = UIImageView(image: UIImage(systemName: "chevron.right")?.withTintColor(.lightGray, renderingMode: .alwaysOriginal))
         disclosure.isUserInteractionEnabled = false
         button.addSubview(disclosure)
