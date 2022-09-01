@@ -412,6 +412,13 @@ public enum ScrollableSegmentedControlSegmentStyle: Int {
             collectionView_.reloadData()
             if selectedSegmentIndex >= 0 {
                 let indexPath = IndexPath(item: selectedSegmentIndex, section: 0)
+                
+                guard indexPath.row < collectionView_.numberOfItems(inSection: indexPath.section)
+                else {
+                    return
+                    
+                }
+                
                 collectionView_.selectItem(at: indexPath, animated: true, scrollPosition: .bottom)
             }
         }
