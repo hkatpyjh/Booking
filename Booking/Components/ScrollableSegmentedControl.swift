@@ -416,7 +416,6 @@ public enum ScrollableSegmentedControlSegmentStyle: Int {
                 guard indexPath.row < collectionView_.numberOfItems(inSection: indexPath.section)
                 else {
                     return
-                    
                 }
                 
                 collectionView_.selectItem(at: indexPath, animated: true, scrollPosition: .bottom)
